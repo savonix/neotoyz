@@ -1,6 +1,10 @@
-module Init
 # Copyright Savonix Corporation
 # Author Albert Lash
+require 'xml/libxml'
+require 'xml/libxslt'
+
+module Init
+
 
 class Init
     
@@ -17,4 +21,5 @@ class Init
     def stop
     end
 
+end
 end
