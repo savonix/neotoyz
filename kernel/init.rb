@@ -9,8 +9,9 @@ class Init
     # starts the timer
     def self.start()
 
+        @_start = Time.now.to_f
         return 999
-        
+
     end
     
     def self.process_gate()
@@ -18,6 +19,8 @@ class Init
     end
     
     def self.stop()
+        _stop = Time.now.to_f
+        return _stop - @_start
     end
 
 end
