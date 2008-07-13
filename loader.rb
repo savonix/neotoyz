@@ -5,17 +5,29 @@ old_time = Time.now
 
 FCGI.each_cgi {|cgi|
 
-    puts cgi.header
-    Init.start
 
     gate = cgi['nid'][0]
+
+    if gate == 'dynamic-css'
+        puts cgi.header("text/css")
+    else
+        puts cgi.header
+    end
+
+    Init.start
     duration = Init.stop
     puts Init.display(gate)
-    puts "Started:"
-    puts old_time
-    puts "<br/><br/>Run:"
-    puts Time.now
-    puts "<br/><br/>Request duration:"
-    puts duration
+
+    if gate == 'dynamic-css'
+    else
+        puts "Started:"
+        puts old_time
+        puts "<br/><br/>Run:"
+        puts Time.now
+        puts "<br/><br/>Request duration:"
+        dur = duration * 1000
+        puts dur
+    end
+
 
 }
