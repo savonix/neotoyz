@@ -3,23 +3,21 @@
 require 'xml/libxml'
 require 'xml/libxslt'
 
-module Init
-
 
 class Init
     
     # starts the timer
-    def start
-        
-        
-    end
-    
-    def process_gate
+    def self.start()
+
+        return 999
         
     end
     
-    def stop
+    def self.process_gate()
+        
+    end
+    
+    def self.stop()
     end
 
-end
 end
