@@ -1,7 +1,7 @@
 #!/usr/bin/ruby1.8
 require "fcgi"
 require '/var/www/dev/neotoyz/kernel/init'
-old_time = Time.now
+
 
 FCGI.each_cgi {|cgi|
 
@@ -20,10 +20,6 @@ FCGI.each_cgi {|cgi|
 
     if gate == 'dynamic-css'
     else
-        puts "Started:"
-        puts old_time
-        puts "<br/><br/>Run:"
-        puts Time.now
         puts "<br/><br/>Request duration:"
         dur = duration * 1000
         puts dur
