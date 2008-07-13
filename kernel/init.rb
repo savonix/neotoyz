@@ -13,11 +13,21 @@ class Init
         return 999
 
     end
-    
-    def self.process_gate()
-        
+
+    def self.process_gate(gate='index')
+
+
     end
-    
+
+
+    def self.display(gate='index')
+        xslt = XML::XSLT.new()
+        xslt.xml = "/tmp/config_cache.xml"
+        xslt.xsl = "/var/www/dev/phunkybb/apps/phunkybb/templates/xsl/login.xsl"
+        output = xslt.serve()
+        return output
+    end
+
     def self.stop()
         _stop = Time.now.to_f
         return _stop - @_start
