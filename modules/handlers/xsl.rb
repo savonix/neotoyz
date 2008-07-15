@@ -1,5 +1,9 @@
-# Copyright Savonix Corporation
-# Author Albert Lash
+=begin
+File:      xsl.rb
+Copyright: Savonix Corporation
+Author:    Albert Lash
+License:   GPL v3 or later
+=end
 require 'xml/libxml'
 require 'xml/libxslt'
 

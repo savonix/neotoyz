@@ -1,5 +1,9 @@
-# Copyright Savonix Corporation
-# Author Albert Lash
+=begin
+File:      flow.rb
+Copyright: Savonix Corporation
+Author:    Albert Lash
+License:   GPL v3 or later
+=end
 require 'xml/libxml'
 
 class Flow
