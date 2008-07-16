@@ -7,7 +7,7 @@ License:   GPL v3 or later
 require 'xml/libxml'
 
 
-def self.process(xsl_file=nil) {
+def self.process(xml_file=nil) {
 
 
 }
