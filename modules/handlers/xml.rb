@@ -5,3 +5,9 @@ Author:    Albert Lash
 License:   GPL v3 or later
 =end
 require 'xml/libxml'
+
+
+def self.process(xsl_file=nil) {
+
+
+}
