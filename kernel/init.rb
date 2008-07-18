@@ -11,7 +11,7 @@ require 'xml/libxslt'
 require '/var/www/dev/neotoyz/kernel/flow'
 
 class Init
-    
+
     # starts the timer
     def self.start()
 

@@ -7,7 +7,7 @@ License:   GPL v3 or later
 require 'xml/libxml'
 
 class Flow
-    
+
     # starts the timer
     def self.start()
 
@@ -22,7 +22,5 @@ class Flow
         return doc
 
     end
-    
-    
-    
+
 end
