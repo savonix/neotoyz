@@ -9,5 +9,6 @@ require 'xml/libxml'
 
 def self.process(xml_file=nil) {
 
+	xml = XML::XML.new()
 
 }
