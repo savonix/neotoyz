@@ -11,10 +11,14 @@ Status
 ------
 The code is alpha and incomplete.
 
+Goals
+-----
+* Build an XML/XSL web publishing toolkit in Ruby.
+* Interface with Ragel for.... ?
 
 License
 -------
-Not sure yet.
+GPL v3 or later.
 
 
 
