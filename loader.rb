@@ -36,7 +36,7 @@ FCGI.each_cgi {|cgi|
         @@blah = @@blah + 1
         output = output.gsub(/<\/body>/, "")
         output = output.gsub(/<\/html>/, "")
-        puts output
+        #puts output
         p config
         puts @@loc_conf
         puts '<br/><br/>Request duration:'
