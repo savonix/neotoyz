@@ -31,7 +31,7 @@ class Init
         xslt.parameters = { "link_prefix" => "/cgi-bin/ruby-test.fcgi?nid=",
         "path_prefix" => "/a/dev/phunkybb/" }
 
-        if gate == 'dynamic-css'
+        if gate == 'x-dynamic-css'
             xslt.xml = "/var/www/dev/phunkybb/apps/phunkybb/data/css/beach_ball.css.xml"
             xslt.xsl = "/var/www/dev/phunkybb/apps/phunkybb/templates/css/dynamic.css.xsl"
         else

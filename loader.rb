@@ -8,7 +8,7 @@ FCGI.each_cgi {|cgi|
 
     gate = cgi['nid'][0]
 
-    if gate == 'dynamic-css'
+    if gate == 'x-dynamic-css'
         puts cgi.header("text/css")
     else
         puts cgi.header
@@ -18,7 +18,7 @@ FCGI.each_cgi {|cgi|
     duration = Init.stop
     puts Init.display(gate)
 
-    if gate == 'dynamic-css'
+    if gate == 'x-dynamic-css'
     else
         puts "<br/><br/>Request duration:"
         dur = duration * 1000
