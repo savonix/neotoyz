@@ -6,15 +6,11 @@ License:   GPL v3 or later
 =end
 
 require 'xml/libxml'
+require 'xmlsimple'
 
 class Config
 
     def self.load_config(config_file)
-
-        file = File.new(config_file, "r")
-        while (line = file.gets)
-
-        end
-        file.close
+        config = XmlSimple.xml_in(@@loc_conf)
     end
 end

@@ -11,7 +11,7 @@ class Fence
 
     def self.load_fence(fence_file)
 
-        parser = XML::Parser.file('/var/www/dev/phunkybb/apps/phunkybb/')
+        parser = XML::Parser.file(fence_file)
 
     end
 

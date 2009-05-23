@@ -17,6 +17,7 @@ class Init
     def self.start()
 
         @_start = Time.now.to_f
+        Fence.get_fence()
         return 999
 
     end
