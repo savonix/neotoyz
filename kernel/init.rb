@@ -32,7 +32,7 @@ class Init
         "path_prefix" => "/a/dev/phunkybb/" }
 
         if gate == 'dynamic-css'
-            xslt.xml = "/var/www/dev/phunkybb/apps/phunkybb/data/xml/beach_ball.xml"
+            xslt.xml = "/var/www/dev/phunkybb/apps/phunkybb/data/css/beach_ball.css.xml"
             xslt.xsl = "/var/www/dev/phunkybb/apps/phunkybb/templates/css/dynamic.css.xsl"
         else
             xslt.xml = Flow.start().to_s
