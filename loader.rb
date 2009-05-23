@@ -3,6 +3,7 @@ require 'fcgi'
 require '/var/www/dev/neotoyz/kernel/fence'
 require '/var/www/dev/neotoyz/kernel/config'
 require '/var/www/dev/neotoyz/kernel/init'
+require 'xmlsimple'
 
 
 @@blah = 1
@@ -11,10 +12,13 @@ require '/var/www/dev/neotoyz/kernel/init'
 FCGI.each_cgi {|cgi|
 
     if @@init == 0
-        @@app_name = cgi['app_name']
-        @@loc_conf = cgi.env_table['loc_conf']
-        @@app_conf = cgi['app_conf']
-        config = Config.new(@@loc_conf)
+        @@app_name = ENV['app_name']
+        @@loc_conf = ENV['loc_conf']
+        if @@loc_conf == nil
+            @@loc_conf = cgi.env_table['loc_conf']
+        end
+        @@app_conf = ENV['app_conf']
+        config = XmlSimple.xml_in(@@loc_conf,'ForceArray'=>false) #Config.new(@@loc_conf)
         @@init = 1
     end
 
@@ -37,8 +41,7 @@ FCGI.each_cgi {|cgi|
         output = output.gsub(/<\/body>/, "")
         output = output.gsub(/<\/html>/, "")
         puts output
-        #p config
-        puts @@loc_conf
+        puts config['build']['query']
         puts '<br/><br/>Request duration:'
         puts @@blah
         dur = duration * 1000

@@ -7,14 +7,12 @@ License:   GPL v3 or later
 
 require 'xml/libxml'
 require 'xmlsimple'
-require 'singleton'
 
 
 class Config
-    include Singleton
 
     def initialize(config_file)
-        @config = XmlSimple.xml_in(config_file,{'KeyAttr' => 'mode'})
+        @config = XmlSimple.xml_in(config_file)
     end
 
 end
