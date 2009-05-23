@@ -11,10 +11,18 @@ Status
 ------
 The code is alpha and incomplete.
 
+
 Goals
 -----
-* Build an XML/XSL web publishing toolkit in Ruby.
+* Build an XML/XSL FastCGI web publishing toolkit in Ruby.
 * Interface with Ragel for.... ?
+
+Requirements
+------------
+* Ruby
+* http://xml-simple.rubyforge.org/
+* http://libxml.rubyforge.org/
+* Hpricot
 
 
 Configuration
