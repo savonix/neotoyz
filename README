@@ -16,6 +16,22 @@ Goals
 * Build an XML/XSL web publishing toolkit in Ruby.
 * Interface with Ragel for.... ?
 
+
+Configuration
+-------------
+<pre>
+<![CDATA[
+<Location /cgi-bin/ruby-test.fcgi>
+    AuthType Digest
+    AuthName "savonix"
+    AuthDigestDomain /
+    AuthUserFile /var/www/etc/savonix.passwd
+    Require valid-user
+
+    SetEnv app_name phunkybb
+</Location>
+]]>
+
 License
 -------
 GPL v3 or later.
