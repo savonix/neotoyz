@@ -11,10 +11,12 @@ class Fence
 
     def self.load_fence(fence_file)
 
-        file = File.new(fence_file, "r")
-        while (line = file.gets)
+        parser = XML::Parser.file('/var/www/dev/phunkybb/apps/phunkybb/')
 
-        end
-        file.close
     end
+
+    def self.get_fence()
+        return 1
+    end
+
 end

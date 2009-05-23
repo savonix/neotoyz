@@ -6,7 +6,7 @@ require '/var/www/dev/neotoyz/kernel/init'
 FCGI.each_cgi {|cgi|
 
 
-    gate = cgi['nid'][0]
+    gate = cgi['nid']
 
     if gate == 'x-dynamic-css'
         puts cgi.header("text/css")
@@ -19,7 +19,7 @@ FCGI.each_cgi {|cgi|
     puts Init.display(gate)
 
     if gate == 'x-dynamic-css'
-    else
+    elsif gate == 'index'
         puts "<br/><br/>Request duration:"
         dur = duration * 1000
         puts dur

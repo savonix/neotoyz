@@ -17,8 +17,8 @@ class Flow
         root << elem3 = XML::Node.new('runtime')
         elem3 << elem4 = XML::Node.new('link_prefix')
         elem3 << elem5 = XML::Node.new('path_prefix')
-        elem4 << "/cgi-bin/ruby-test.fcgi?nid="
-        elem5 << "/a/dev/phunkybb/"
+        elem4 << '/cgi-bin/ruby-test.fcgi?nid='
+        elem5 << '/a/dev/phunkybb/'
         return doc
 
     end
