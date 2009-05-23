@@ -11,12 +11,12 @@ class Fence
 
     def self.load_fence(fence_file)
 
-        parser = XML::Parser.file(fence_file)
+        @fence_doc = XML::Reader.file(fence_file)
 
     end
 
     def self.get_fence()
-        return 1
+        return @fence_doc
     end
 
 end

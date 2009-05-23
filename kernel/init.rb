@@ -7,8 +7,6 @@ License:   GPL v3 or later
 
 require 'xml/libxml'
 require 'xml/libxslt'
-
-require '/var/www/dev/neotoyz/kernel/fence'
 require '/var/www/dev/neotoyz/kernel/flow'
 
 class Init
@@ -17,7 +15,6 @@ class Init
     def self.start()
 
         @_start = Time.now.to_f
-        Fence.get_fence()
         return 999
 
     end
