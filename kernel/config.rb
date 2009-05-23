@@ -10,7 +10,8 @@ require 'xmlsimple'
 
 class Config
 
-    def self.load_config(config_file)
-        config = XmlSimple.xml_in(@@loc_conf)
+    def initialize(config_file)
+        @config = XmlSimple.xml_in(config_file,{'KeyAttr' => 'mode'})
     end
+
 end
