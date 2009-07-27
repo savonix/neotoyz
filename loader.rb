@@ -1,6 +1,6 @@
 #!/usr/bin/ruby1.8
 require 'fcgi'
-#require '/var/www/dev/neotoyz/kernel/fence'
+require '/var/www/dev/neotoyz/kernel/fence'
 #require '/var/www/dev/neotoyz/kernel/config'
 require '/var/www/dev/neotoyz/kernel/init'
 require 'xmlsimple'
@@ -15,8 +15,6 @@ sitemap  = ""
 
 FCGI.each_cgi {|cgi|
 
-
-
     if @@init == 0
         @@app_name = ENV['app_name']
         @@loc_conf = ENV['loc_conf']
@@ -28,7 +26,8 @@ FCGI.each_cgi {|cgi|
         config   = XmlSimple.xml_in(@@loc_conf,'ForceArray'=>false)
         sitemap  = config['build']['sitemap']
         gate_key = config['build']['query']
-        fence    = XML::Reader.file(sitemap)
+        fence    = Fence.load_fence(sitemap)
+        #fence    = XML::Reader.file(sitemap)
         #puts "configuring..."
     end
 
@@ -43,19 +42,6 @@ FCGI.each_cgi {|cgi|
     Init.start
     duration = Init.stop
     output   = Init.display(gate)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     if gate == 'x-dynamic-css'

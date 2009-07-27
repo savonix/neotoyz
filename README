@@ -22,7 +22,7 @@ Requirements
 * Ruby
 * http://xml-simple.rubyforge.org/
 * http://libxml.rubyforge.org/
-* Hpricot
+* Hpricot / Nokogiri
 
 
 Configuration
