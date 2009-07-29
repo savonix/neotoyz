@@ -21,8 +21,9 @@ class Fence
         return @fence_doc
     end
 
-    def self.get_gate()
-        return 1
+    def self.get_gate(my_gate)
+        myxpath = "//gate[@name=\"#{mygate}\"]"
+        return @fence_doc.xpath(myxpath)
     end
 
     def self.test()

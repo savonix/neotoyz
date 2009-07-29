@@ -43,13 +43,12 @@ FCGI.each_cgi {|cgi|
     duration = Init.stop
     output   = Init.display(gate)
 
-
     if gate == 'x-dynamic-css'
         puts output
     elsif gate == 'index'
         @@blah = @@blah + 1
-        output = output.gsub(/<\/body>/, "")
-        output = output.gsub(/<\/html>/, "")
+        output = output.gsub("</body>", "")
+        output = output.gsub("</html>", "")
         puts output
         puts config['build']['sitemap']
         puts '<br/><br/>Request duration:'
