@@ -10,8 +10,16 @@ require 'xml/libxslt'
 
 
 def self.process(xsl_file=nil) {
-        xslt = XML::XSLT.new()
+
+    xslt = XML::XSLT.new()
+    xslt.parameters = {
+        'link_prefix' => '/cgi-bin/ruby-test.fcgi?nid=',
+        'path_prefix' => '/a/dev/phunkybb/'
+    }
+
+    xslt.xml = Flow.start().to_s
+    xslt.xsl = path+myxsl
+
+    return xslt.serve()
 
 }
-
-

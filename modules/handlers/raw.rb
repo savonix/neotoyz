@@ -6,7 +6,7 @@ License:   GPL v3 or later
 =end
 
 
-def self.process(xml_file=nil) {
+def self.process(src_file=nil) {
 
 
 }

@@ -38,7 +38,6 @@ class Init
         else
             xslt.xml = Flow.start().to_s
             xslt.xsl = path+myxsl
-            #xslt.xsl = path+'templates/xsl/login.xsl'
         end
 
         output = xslt.serve()
