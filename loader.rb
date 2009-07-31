@@ -37,15 +37,15 @@ FCGI.each_cgi {|cgi|
         puts cgi.header
     end
 
-    puts Fence.get_gate(gate)
+    myxsl = Fence.get_gate(gate)
 
     Init.start
     duration = Init.stop
-    output   = Init.display(gate)
+    output   = Init.display(gate,myxsl)
 
     if gate == 'x-dynamic-css'
         puts output
-    elsif gate == 'index'
+    else
         @@blah = @@blah + 1
         output = output.gsub("</body>", "")
         output = output.gsub("</html>", "")

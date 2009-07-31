@@ -25,20 +25,24 @@ class Init
     end
 
 
-    def self.display(gate)
+    def self.display(gate,myxsl)
         xslt = XML::XSLT.new()
         xslt.parameters = { 'link_prefix' => '/cgi-bin/ruby-test.fcgi?nid=',
         'path_prefix' => '/a/dev/phunkybb/' }
 
+        path = '/var/www/dev/phunkybb/apps/phunkybb/'
+        # Fence.get_gate(gate)
         if gate == 'x-dynamic-css'
-            xslt.xml = '/var/www/dev/phunkybb/apps/phunkybb/data/css/beach_ball.css.xml'
-            xslt.xsl = '/var/www/dev/phunkybb/apps/phunkybb/templates/css/dynamic.css.xsl'
-        elsif gate == 'index'
+            xslt.xml = path+'data/css/beach_ball.css.xml'
+            xslt.xsl = path+'templates/css/dynamic.css.xsl'
+        else
             xslt.xml = Flow.start().to_s
-            xslt.xsl = '/var/www/dev/phunkybb/apps/phunkybb/templates/xsl/login.xsl'
+            xslt.xsl = path+myxsl
+            #xslt.xsl = path+'templates/xsl/login.xsl'
         end
 
         output = xslt.serve()
+        #output = myxsl
         if output
             return output
         else

@@ -21,8 +21,13 @@ class Fence
         return @fence_doc
     end
 
+    def self.get_xsl(my_gate)
+        myxpath = "//gate[@name=\""+my_gate+"\"]/xsl/@src"
+        return @fence_doc.xpath(myxpath).to_s
+    end
+
     def self.get_gate(my_gate)
-        myxpath = "//gate[@name=\""+my_gate+"\"]"
+        myxpath = "//gate[@name=\""+my_gate+"\"]/xsl/@src"
         return @fence_doc.xpath(myxpath).to_s
     end
 
