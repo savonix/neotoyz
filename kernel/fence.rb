@@ -22,8 +22,8 @@ class Fence
     end
 
     def self.get_gate(my_gate)
-        myxpath = "//gate[@name=\"#{mygate}\"]"
-        return @fence_doc.xpath(myxpath)
+        myxpath = "//gate[@name=\""+my_gate+"\"]"
+        return @fence_doc.xpath(myxpath).to_s
     end
 
     def self.test()

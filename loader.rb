@@ -27,8 +27,6 @@ FCGI.each_cgi {|cgi|
         sitemap  = config['build']['sitemap']
         gate_key = config['build']['query']
         fence    = Fence.load_fence(sitemap)
-        #fence    = XML::Reader.file(sitemap)
-        #puts "configuring..."
     end
 
     gate = cgi[gate_key]
@@ -38,6 +36,8 @@ FCGI.each_cgi {|cgi|
     else
         puts cgi.header
     end
+
+    puts Fence.get_gate(gate)
 
     Init.start
     duration = Init.stop
@@ -58,7 +58,6 @@ FCGI.each_cgi {|cgi|
         puts dur
         puts '</body></html>'
     end
-
 
     if @@init == 0
         @@init = 1
