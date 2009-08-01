@@ -18,10 +18,11 @@ FCGI.each_cgi {|cgi|
     if @@init == 0
         @@app_name = ENV['app_name']
         @@loc_conf = ENV['loc_conf']
+        @@app_conf = ENV['app_conf']
         if @@loc_conf == nil
             @@loc_conf = cgi.env_table['loc_conf']
+            @@app_name = cgi.env_table['app_name']
         end
-        @@app_conf = ENV['app_conf']
 
         config   = XmlSimple.xml_in(@@loc_conf,'ForceArray'=>false)
         sitemap  = config['build']['sitemap']
@@ -29,19 +30,24 @@ FCGI.each_cgi {|cgi|
         fence    = Fence.load_fence(sitemap)
     end
 
+
     gate = cgi[gate_key]
 
     if gate == 'x-dynamic-css'
         puts cgi.header("text/css")
     else
-        puts cgi.header
+        if @@app_name == 'pbooks'
+            puts cgi.header("application/xhtml+xml")
+        else
+            puts cgi.header
+        end
     end
 
     myxsl = Fence.get_gate(gate)
 
     Init.start
     duration = Init.stop
-    output   = Init.display(gate,myxsl)
+    output   = Init.display(gate,myxsl,'pbooks')
 
     if gate == 'x-dynamic-css'
         puts output

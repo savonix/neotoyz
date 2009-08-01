@@ -14,7 +14,7 @@ def self.process(xsl_file=nil) {
     xslt = XML::XSLT.new()
     xslt.parameters = {
         'link_prefix' => '/cgi-bin/ruby-test.fcgi?nid=',
-        'path_prefix' => '/a/dev/phunkybb/'
+        'path_prefix' => '/a/dev/pbooks/'
     }
 
     xslt.xml = Flow.start().to_s

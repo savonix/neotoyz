@@ -9,7 +9,7 @@ require 'xml/libxml'
 class Flow
 
     # starts the timer
-    def self.start()
+    def self.start(app_name)
 
         doc = XML::Document.new()
         doc.root = XML::Node.new('_R_')
@@ -18,7 +18,7 @@ class Flow
         elem3 << elem4 = XML::Node.new('link_prefix')
         elem3 << elem5 = XML::Node.new('path_prefix')
         elem4 << '/cgi-bin/ruby-test.fcgi?nid='
-        elem5 << '/a/dev/phunkybb/'
+        elem5 << '/a/dev/'+app_name+'/'
         return doc
 
     end

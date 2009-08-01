@@ -25,23 +25,28 @@ class Init
     end
 
 
-    def self.display(gate,myxsl)
+    def self.display(gate,myxsl,app_name)
+        path = '/var/www/dev/'+app_name+'/apps/'+app_name+'/'
         xslt = XML::XSLT.new()
-        xslt.parameters = { 'link_prefix' => '/cgi-bin/ruby-test.fcgi?nid=',
-        'path_prefix' => '/a/dev/phunkybb/' }
+        xslt.parameters = { 'link_prefix' => '/cgi-bin/ruby_pbooks.fcgi?nid=',
+        'path_prefix' => '/a/dev/pbooks/' }
 
-        path = '/var/www/dev/phunkybb/apps/phunkybb/'
+        begin
         # Fence.get_gate(gate)
         if gate == 'x-dynamic-css'
-            xslt.xml = path+'data/css/beach_ball.css.xml'
+            xslt.xml = Flow.start(app_name).to_s
             xslt.xsl = path+'templates/css/dynamic.css.xsl'
         else
-            xslt.xml = Flow.start().to_s
+            xslt.xml = Flow.start(app_name).to_s
             xslt.xsl = path+myxsl
         end
 
+        rescue StandardError => bang
+            return "Error running script: " + bang
+        end
+
         output = xslt.serve()
-        #output = myxsl
+        #output = path+myxsl
         if output
             return output
         else
