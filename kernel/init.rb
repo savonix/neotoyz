@@ -29,7 +29,7 @@ class Init
         path = '/var/www/dev/'+app_name+'/apps/'+app_name+'/'
         xslt = XML::XSLT.new()
         xslt.parameters = { 'link_prefix' => '/cgi-bin/ruby_pbooks.fcgi?nid=',
-        'path_prefix' => '/a/dev/pbooks/' }
+        'path_prefix' => '/a/dev/'+app_name+'/' }
 
         begin
         # Fence.get_gate(gate)
