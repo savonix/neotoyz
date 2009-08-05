@@ -24,14 +24,21 @@ FCGI.each_cgi {|cgi|
             @@app_name = cgi.env_table['app_name']
         end
 
-        config   = XmlSimple.xml_in(@@loc_conf,'ForceArray'=>false)
-        sitemap  = config['build']['sitemap']
-        gate_key = config['build']['query']
-        fence    = Fence.load_fence(sitemap)
+        begin
+            config   = XmlSimple.xml_in(@@loc_conf,'ForceArray'=>false)
+            sitemap  = config['build']['sitemap']
+            gate_key = config['build']['query']
+            fence    = Fence.load_fence(sitemap)
+        rescue StandardError
+            puts config
+        end
     end
 
-
-    gate = cgi[gate_key]
+    begin
+        gate = cgi[gate_key]
+    rescue StandardError
+        puts "Error 2"
+    end
 
     if gate == 'x-dynamic-css'
         puts cgi.header("text/css")
@@ -43,11 +50,20 @@ FCGI.each_cgi {|cgi|
         end
     end
 
-    myxsl = Fence.get_gate(gate)
+    begin
+        myxsl = Fence.get_gate(gate)
+        puts gate
+    rescue StandardError
+        puts "Error 3"
+    end
 
-    Init.start
-    duration = Init.stop
-    output   = Init.display(gate,myxsl,'pbooks')
+    begin
+        Init.start
+        duration = Init.stop
+        output   = Init.display(gate,myxsl,@@app_name)
+    rescue StandardError
+        puts "Error 123"
+    end
 
     if gate == 'x-dynamic-css'
         puts output

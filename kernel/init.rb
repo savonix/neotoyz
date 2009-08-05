@@ -32,17 +32,16 @@ class Init
         'path_prefix' => '/a/dev/'+app_name+'/' }
 
         begin
-        # Fence.get_gate(gate)
-        if gate == 'x-dynamic-css'
-            xslt.xml = Flow.start(app_name).to_s
-            xslt.xsl = path+'templates/css/dynamic.css.xsl'
-        else
-            xslt.xml = Flow.start(app_name).to_s
-            xslt.xsl = path+myxsl
-        end
-
-        rescue StandardError => bang
-            return "Error running script: " + bang
+            # Fence.get_gate(gate)
+            if gate == 'x-dynamic-css'
+                xslt.xml = Flow.start(app_name).to_s
+                xslt.xsl = path+'templates/css/dynamic.css.xsl'
+            else
+                xslt.xml = Flow.start(app_name).to_s
+                xslt.xsl = path+myxsl
+            end
+        rescue StandardError
+            return "Error running script"
         end
 
         output = xslt.serve()
