@@ -25,7 +25,7 @@ class Init
             config   = XmlSimple.xml_in(loc_conf,'ForceArray'=>false)
             sitemap  = config['build']['sitemap']
             gate_key = config['build']['query']
-            @@fence    = Fence.load_fence(sitemap)
+            @myfence    = Fence.load_fence(sitemap)
         rescue  => detail
             puts cgi.header
             puts "Configuration error"
@@ -43,7 +43,7 @@ class Init
 
     def self.display(gate,app_name)
         begin
-            myxsl = Fence.get_gate(gate)
+            myxsl = @myfence.get_gate(gate)
             puts gate
         rescue StandardError
             puts "Error 3"
