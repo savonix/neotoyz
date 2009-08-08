@@ -10,6 +10,7 @@ require 'xml/libxslt'
 require 'xmlsimple'
 require '/var/www/dev/neotoyz/kernel/flow'
 require '/var/www/dev/neotoyz/kernel/fence'
+require '/var/www/dev/neotoyz/modules/handlers/xsl'
 
 class Init
 
@@ -46,17 +47,20 @@ class Init
 
         begin
             myxsl = @myfence.get_gate(gate)
-        rescue => detail
+        rescue => e
             puts @myfence
             puts gate
             puts "Error 3"
-            puts detail.backtrace.join("\n")
+            puts e.backtrace.join("\n")
+            puts e.message
         end
 
         path = '/var/www/dev/'+app_name+'/apps/'+app_name+'/'
         xslt = XML::XSLT.new()
-        xslt.parameters = { 'link_prefix' => '/cgi-bin/ruby_pbooks.fcgi?nid=',
-        'path_prefix' => '/a/dev/'+app_name+'/' }
+        xslt.parameters = {
+            'link_prefix' => '/cgi-bin/ruby_pbooks.fcgi?nid=',
+            'path_prefix' => '/a/dev/'+app_name+'/'
+        }
 
         begin
             myflow = Flow.new(app_name)
