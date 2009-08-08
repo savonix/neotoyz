@@ -13,11 +13,12 @@ require '/var/www/dev/neotoyz/kernel/fence'
 
 class Init
 
-    @@fence = 0
+    @myfence = 0
 
     # starts the timer
     def self.start(cgi)
 
+        @cgi = cgi
         #loc_conf = cgi.env_table['loc_conf']
         loc_conf = "/var/www/dev/established-sites/config/config_noent.xml"
 
@@ -25,7 +26,7 @@ class Init
             config   = XmlSimple.xml_in(loc_conf,'ForceArray'=>false)
             sitemap  = config['build']['sitemap']
             gate_key = config['build']['query']
-            @myfence    = Fence.load_fence(sitemap)
+            @myfence    = Fence.new(sitemap)
         rescue  => detail
             puts cgi.header
             puts "Configuration error"
@@ -44,9 +45,11 @@ class Init
     def self.display(gate,app_name)
         begin
             myxsl = @myfence.get_gate(gate)
+        rescue => detail
+            puts @myfence
             puts gate
-        rescue StandardError
             puts "Error 3"
+            puts detail.backtrace.join("\n")
         end
         path = '/var/www/dev/'+app_name+'/apps/'+app_name+'/'
         xslt = XML::XSLT.new()
@@ -54,19 +57,23 @@ class Init
         'path_prefix' => '/a/dev/'+app_name+'/' }
 
         begin
+            myxml = Flow.start(app_name).to_s
+            xslt.xml = myxml
             # Fence.get_gate(gate)
             if gate == 'x-dynamic-css'
-                xslt.xml = Flow.start(app_name).to_s
                 xslt.xsl = path+'templates/css/dynamic.css.xsl'
             else
-                xslt.xml = Flow.start(app_name).to_s
                 xslt.xsl = path+myxsl
             end
         rescue StandardError
             return "Error running script"
         end
-        puts cgi.header
-        puts xslt.serve()
+        begin
+            puts @cgi.header
+            puts xslt.serve
+        rescue StandardError => e
+            puts e.message
+        end
     end
 
     def self.stop()
