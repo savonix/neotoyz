@@ -7,15 +7,31 @@ License:   GPL v3 or later
 
 require 'xml/libxml'
 require 'xml/libxslt'
+require 'xmlsimple'
 require '/var/www/dev/neotoyz/kernel/flow'
+require '/var/www/dev/neotoyz/kernel/fence'
 
 class Init
 
-    # starts the timer
-    def self.start()
+    @@fence = 0
 
-        @_start = Time.now.to_f
-        return 999
+    # starts the timer
+    def self.start(cgi)
+
+        #loc_conf = cgi.env_table['loc_conf']
+        loc_conf = "/var/www/dev/established-sites/config/config_noent.xml"
+
+        begin
+            config   = XmlSimple.xml_in(loc_conf,'ForceArray'=>false)
+            sitemap  = config['build']['sitemap']
+            gate_key = config['build']['query']
+            @@fence    = Fence.load_fence(sitemap)
+        rescue  => detail
+            puts cgi.header
+            puts "Configuration error"
+            puts detail.backtrace.join("\n")
+            exit
+        end
 
     end
 
@@ -25,7 +41,13 @@ class Init
     end
 
 
-    def self.display(gate,myxsl,app_name)
+    def self.display(gate,app_name)
+        begin
+            myxsl = Fence.get_gate(gate)
+            puts gate
+        rescue StandardError
+            puts "Error 3"
+        end
         path = '/var/www/dev/'+app_name+'/apps/'+app_name+'/'
         xslt = XML::XSLT.new()
         xslt.parameters = { 'link_prefix' => '/cgi-bin/ruby_pbooks.fcgi?nid=',
@@ -43,14 +65,8 @@ class Init
         rescue StandardError
             return "Error running script"
         end
-
-        output = xslt.serve()
-        #output = path+myxsl
-        if output
-            return output
-        else
-            return false
-        end
+        puts cgi.header
+        puts xslt.serve()
     end
 
     def self.stop()
