@@ -43,6 +43,7 @@ class Init
 
 
     def self.display(gate,app_name)
+
         begin
             myxsl = @myfence.get_gate(gate)
         rescue => detail
@@ -51,22 +52,20 @@ class Init
             puts "Error 3"
             puts detail.backtrace.join("\n")
         end
+
         path = '/var/www/dev/'+app_name+'/apps/'+app_name+'/'
         xslt = XML::XSLT.new()
         xslt.parameters = { 'link_prefix' => '/cgi-bin/ruby_pbooks.fcgi?nid=',
         'path_prefix' => '/a/dev/'+app_name+'/' }
 
         begin
-            myxml = Flow.start(app_name).to_s
+            myflow = Flow.new(app_name)
+            myxml = myflow.get_flow.to_s
             xslt.xml = myxml
-            # Fence.get_gate(gate)
-            if gate == 'x-dynamic-css'
-                xslt.xsl = path+'templates/css/dynamic.css.xsl'
-            else
-                xslt.xsl = path+myxsl
-            end
-        rescue StandardError
-            return "Error running script"
+            xslt.xsl = path+myxsl
+        rescue StandardError => e
+            puts e.message
+            return "XSL or Flow error"
         end
         begin
             puts @cgi.header
