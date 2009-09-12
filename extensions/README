@@ -1,0 +1,1 @@
+I'm considering separating extensions out as middleware components, along the lines of WSGI and Rack.
