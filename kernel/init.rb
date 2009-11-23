@@ -72,8 +72,8 @@ class Init
             return "XSL or Flow error"
         end
         begin
-            puts @cgi.header
-            puts xslt.serve
+            #puts @cgi.header
+            return xslt.serve
         rescue StandardError => e
             puts e.message
         end
