@@ -20,8 +20,8 @@ class Init
     def self.start(cgi)
 
         @cgi = cgi
-        #loc_conf = cgi.env_table['loc_conf']
-        loc_conf = "/var/www/dev/established-sites/config/config_noent.xml"
+        loc_conf = cgi.env_table['loc_conf']
+        #loc_conf = "/var/www/dev/established-sites/config/config_noent.xml"
 
         begin
             config   = XmlSimple.xml_in(loc_conf,'ForceArray'=>false)
