@@ -28,8 +28,10 @@ FCGI.each_cgi {|cgi|
             config   = XmlSimple.xml_in(@@loc_conf,'ForceArray'=>false)
             sitemap  = config['build']['sitemap']
             gate_key = config['build']['query']
-            fence    = Fence.load_fence(sitemap)
+            myfence    = Fence.new(sitemap)
         rescue StandardError
+            puts cgi.header("text/plain")
+            puts "Config error"
             puts config
         end
     end
@@ -37,8 +39,10 @@ FCGI.each_cgi {|cgi|
     begin
         gate = cgi[gate_key]
     rescue StandardError
+        puts cgi.header("text/plain")
         puts "Error 2"
     end
+
 
     if gate == 'x-dynamic-css'
         puts cgi.header("text/css")
@@ -46,39 +50,38 @@ FCGI.each_cgi {|cgi|
         if @@app_name == 'pbooks'
             puts cgi.header("application/xhtml+xml")
         else
-            puts cgi.header
+            puts cgi.header("text/plain")
         end
     end
 
     begin
-        myxsl = Fence.get_gate(gate)
-        puts gate
-    rescue StandardError
-        puts "Error 3"
-    end
-
-    begin
-        Init.start
-        duration = Init.stop
-        output   = Init.display(gate,myxsl,@@app_name)
-    rescue StandardError
+        Init.start(cgi)
+        duration = 0 #Init.stop
+        output   = Init.display(gate,@@app_name)
+    rescue StandardError => e
+        puts e
+        puts myxsl
         puts "Error 123"
     end
 
     if gate == 'x-dynamic-css'
         puts output
     else
-        @@blah = @@blah + 1
-        output = output.gsub("</body>", "")
-        output = output.gsub("</html>", "")
-        puts output
-        puts config['build']['sitemap']
-        puts '<br/><br/>Request duration:'
-        puts @@blah
-        puts @@init
-        dur = duration * 1000
-        puts dur
-        puts '</body></html>'
+        begin
+            @@blah = @@blah + 1
+            output = output.gsub("</body>", "")
+            output = output.gsub("</html>", "")
+            puts output
+            puts config['build']['sitemap']
+            puts '<br/><br/>Request duration:'
+            puts @@blah
+            puts @@init
+            dur = duration * 1000
+            puts dur
+            puts '</body></html>'
+        rescue
+            puts 'error'
+        end
     end
 
     if @@init == 0
