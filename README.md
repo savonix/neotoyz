@@ -21,14 +21,14 @@ NeoToyz is meant to run as a fastcgi application, so there are two primary point
 # Ongoing memory and process management
 
 
-=== Configuration
+### Configuration
 First thing to be aware of is that NeoToyz applications are configured by an XML 
 file, but NeoToyz needs to know where that file is. It can be specified in the FastCGI
 loader, the webserver as an environmental variable, or via Ruby logic based upon
 other environment variables such as SERVER_NAME or PATH_INFO.
 
 
-=== Ongoing Management
+### Ongoing Management
 
 
 
